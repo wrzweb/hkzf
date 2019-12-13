@@ -1,0 +1,36 @@
+.index .nav{
+    padding: 10px 0;
+    text-align: center;
+    h2{
+        font-weight: normal;
+        color: #000;
+        font-size: 12px;
+        margin: 0;
+    }
+    img{
+        height: 48px;
+    }
+    .swipers{
+        height: 212px;
+    }
+   
+}
+.index{
+    .grounp{
+        background-color: #eeee;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
+        .title{
+            font-size: 14px;
+            margin: 15px 10px;
+            display: flex;
+            justify-content: space-between;
+            .left{
+                font-weight: bold;
+                font-size: 15px;
+                color: #333;
+            }
+        }
+    }
+}
