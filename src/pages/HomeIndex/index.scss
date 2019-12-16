@@ -1,3 +1,56 @@
+// 顶部导航
+.search-box {
+    position: absolute;
+    top: 25px;
+    width: 100%;
+    padding: 0 10px;
+    z-index: 999;
+
+    // 左侧白色区域
+    .search {
+      flex: 1;
+      height: 34px;
+      margin: 0 10px;
+      padding: 5px 5px 5px 8px;
+      border-radius: 3px;
+      background-color: #fff;
+
+      // 位置
+      .location {
+        .icon-arrow {
+          margin-left: 2px;
+          font-size: 12px;
+          color: #7f7f80;
+        }
+      }
+
+      // 搜索表单
+      .form {
+        border-left: solid 1px #e5e5e5;
+        margin-left: 12px;
+        line-height: 16px;
+
+        .icon-seach {
+          vertical-align: middle;
+          padding: 0 2px 0 12px;
+          color: #9c9fa1;
+          font-size: 15px;
+        }
+
+        .text {
+          padding-left: 4px;
+          font-size: 13px;
+          color: #9c9fa1;
+        }
+      }
+    }
+
+    // 右侧地图图标
+    .icon-map {
+      font-size: 25px;
+      color: #fff;
+    }
+  }
 .index .nav{
     padding: 10px 0;
     text-align: center;
@@ -18,12 +71,15 @@
 .index{
     .grounp{
         background-color: #eeee;
-        height: 40px;
-        line-height: 40px;
+        // 让父级盒子自己撑大
+        overflow: hidden;
         padding: 0 10px;
-        .title{
+        >.title{
             font-size: 14px;
+            height: 40px;
+        line-height: 40px;
             margin: 15px 10px;
+            margin-bottom: 0;
             display: flex;
             justify-content: space-between;
             .left{
@@ -34,3 +90,38 @@
         }
     }
 }
+.group-item {
+    height: 75px;
+
+    .desc {
+      .title {
+        font-weight: bold;
+        font-size: 13px;
+        margin-bottom: 5px;
+        color: #000;
+      }
+      .info {
+        font-size: 12px;
+        color: #999;
+      }
+    }
+    img {
+      width: 55px;
+    }
+  }
+
+  .am-grid .am-flexbox-align-stretch{
+   background-color: #eee !important;
+      margin-bottom: 10px; 
+  }
+  .am-flexbox .am-grid-item:first-child{
+  margin-right: 10px; 
+}
+.am-grid-item-content{
+  padding: 0 !important;
+ 
+}
+
+
+
+ 

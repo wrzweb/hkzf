@@ -1,5 +1,5 @@
 import React from 'react';
-import { Carousel,Toast,Flex} from 'antd-mobile';
+import { Carousel,Toast,Flex,Grid } from 'antd-mobile';
 import axios from 'axios'
 import './index.scss'
 import nav1 from '../../assets/images/nav-1.png'
@@ -33,12 +33,14 @@ const navs = [
     path: '/rent'
   }
 ]
+
 export default class homeIndex extends React.Component {
   state = {
     swipers: [],
     isLoading:false,
     area:'',
-    grounps:[]
+    grounps:[],
+    currentCity:'北京'
 
   }
   // 获取轮播图数据
@@ -61,14 +63,24 @@ export default class homeIndex extends React.Component {
   this.setState({
 grounps:res.body
   })
+  console.log(this.state.grounps);
   
   }
   // 页面加载时
   componentDidMount() {
 
     this.getSwiper()
-    this.navList()
     this.getGrounp()
+    // 获取城市信息
+    const cityInfo=new window.BMap.LocalCity()
+    cityInfo.get(async res=>{
+      const result=await axios.get('http://localhost:8080/area/info',res.name)
+      // 把城市信息修改成定位的城市
+      this.setState({
+        currentCity:result.data.body.label
+      })
+      
+    })
   }
  
   // 轮播图结构
@@ -94,7 +106,7 @@ grounps:res.body
   navList(){
      return navs.map(item=>{
        return <Flex.Item onClick={()=>{this.props.history.push(item.path)}} key={item.id}>
-       <img src={item.img}></img>
+       <img src={item.img} alt=""></img>
      <h2>{item.title}</h2>
       </Flex.Item>
      })
@@ -103,11 +115,38 @@ grounps:res.body
   render() {
     return (
       <div className="index">
+        {/* 搜索框 */}
+        <Flex className="search-box">
+            {/* 左侧白色区域 */}
+            <Flex className="search">
+              {/* 位置 */}
+              <div
+                className="location"
+              >
+  <span className="name" onClick={()=>this.props.history.push('/CityList')}>{this.state.currentCity}</span>
+                <i className="iconfont icon-arrow" />
+              </div>
+
+              {/* 搜索表单 */}
+              <div
+                className="form"
+               
+              >
+                <i className="iconfont icon-seach" />
+                <span className="text">请输入小区或地址</span>
+              </div>
+            </Flex>
+            {/* 右侧地图图标 */}
+            <i
+              className="iconfont icon-map"
+              
+            />
+          </Flex>
         <div className="swipers">
         {this.state.isLoading?<Carousel
           autoplay
           infinite
-          autoplayInterval={1000}
+          autoplayInterval={3000}
         >
           {this.swiperHandel()}
         </Carousel>:''}
@@ -122,6 +161,22 @@ grounps:res.body
             <span className="left">住房小组</span>
             <span className="right">更多</span>
           </div>
+          <Grid data={this.state.grounps} hasLine={false} activeStyle={false} columnNum={2}square={false} renderItem={item=>{
+              return (
+                
+                <Flex className="group-item" justify="around">
+                  <div className="desc">
+                    <p className="title">家住回龙观</p>
+                    <span className="info">归属的感觉</span>
+                  </div>
+                  <img
+                    src={"http://localhost:8080"+item.imgSrc}
+                    alt=""
+                  />
+                </Flex>
+                
+              )
+            }}/>
    </div>
       </div>
     )
