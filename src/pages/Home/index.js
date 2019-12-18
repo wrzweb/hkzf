@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route} from 'react-router-dom'
-// 导入组件
+// 导入tabbar中其他组件
 import News from '../News'
 import HomeIndex from '../HomeIndex'
 import Me from '../Me'
@@ -40,6 +40,8 @@ export default class Home extends React.Component {
   renderTabItems(){
     // 把这个方法return出去
     return tabItems.map(item=>{
+      console.log(item);
+      
       // return 内容
      return <TabBar.Item
           icon={<i className={`iconfont ${item.icon}`} ></i>}
@@ -63,11 +65,10 @@ export default class Home extends React.Component {
         </TabBar.Item>
     })
   }
-   // 更新数据
-   componentDidUpdate(oldProps){
-     console.log(oldProps.location);
-     
-    if(oldProps.location.pathname!==this.props.history.location.pathname){
+   // 更新数据 会执行两次 修改前执行一次，修改后执行一次
+   componentDidUpdate(oldProps){  
+    //  组件传过来的值和新值比较
+    if(oldProps.location.pathname!==this.props.location.pathname){
       this.setState({
         selectedTab:this.props.history.location.pathname
       })

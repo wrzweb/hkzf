@@ -6,6 +6,8 @@ import nav1 from '../../assets/images/nav-1.png'
 import nav2 from '../../assets/images/nav-2.png'
 import nav3 from '../../assets/images/nav-3.png'
 import nav4 from '../../assets/images/nav-4.png'
+// 导入定位城市方法 用{}区分导入进来的组件
+import {current_city} from '../../utils/api.js'
 // nav 数据
 const navs = [
   {
@@ -37,6 +39,7 @@ const navs = [
 export default class homeIndex extends React.Component {
   state = {
     swipers: [],
+    // 轮播图开关只有请求完数据才会渲染轮播图
     isLoading:false,
     area:'',
     grounps:[],
@@ -63,25 +66,26 @@ export default class homeIndex extends React.Component {
   this.setState({
 grounps:res.body
   })
-  console.log(this.state.grounps);
   
   }
   // 页面加载时
-  componentDidMount() {
-
+  async componentDidMount() {
+    const currentCity= await current_city()
+    
+   
+    
+      // 把城市信息修改成定位的城市
+    this.setState({
+      currentCity:currentCity.label
+    })
     this.getSwiper()
     this.getGrounp()
-    // 获取城市信息
-    const cityInfo=new window.BMap.LocalCity()
-    cityInfo.get(async res=>{
-      const result=await axios.get('http://localhost:8080/area/info',res.name)
-      // 把城市信息修改成定位的城市
-      this.setState({
-        currentCity:result.data.body.label
-      })
       
-    })
-  }
+    
+    
+      
+    }
+  
  
   // 轮播图结构
   swiperHandel() {
@@ -123,6 +127,7 @@ grounps:res.body
               <div
                 className="location"
               >
+                {/* 城市选择按钮 */}
   <span className="name" onClick={()=>this.props.history.push('/CityList')}>{this.state.currentCity}</span>
                 <i className="iconfont icon-arrow" />
               </div>
@@ -143,6 +148,7 @@ grounps:res.body
             />
           </Flex>
         <div className="swipers">
+          {/* 根据开关判断是否需要渲染轮播图结构 */}
         {this.state.isLoading?<Carousel
           autoplay
           infinite
@@ -162,12 +168,14 @@ grounps:res.body
             <span className="right">更多</span>
           </div>
           <Grid data={this.state.grounps} hasLine={false} activeStyle={false} columnNum={2}square={false} renderItem={item=>{
+            
               return (
+                
                 
                 <Flex className="group-item" justify="around">
                   <div className="desc">
-                    <p className="title">家住回龙观</p>
-                    <span className="info">归属的感觉</span>
+              <p className="title">{item.title}</p>
+              <span className="info">{item.desc}</span>
                   </div>
                   <img
                     src={"http://localhost:8080"+item.imgSrc}

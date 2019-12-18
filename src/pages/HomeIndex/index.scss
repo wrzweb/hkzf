@@ -54,6 +54,8 @@
 .index .nav{
     padding: 10px 0;
     text-align: center;
+     /* 取消浏览器默认手势行为 启用单指水平平移手势 */
+ touch-action: pan-x;
     h2{
         font-weight: normal;
         color: #000;
@@ -121,6 +123,7 @@
   padding: 0 !important;
  
 }
+
 
 
 
