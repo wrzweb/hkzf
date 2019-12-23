@@ -2,9 +2,9 @@ import React from 'react';
 import NavBar from '../../components/NavBarHeader'
 // 引入css in js解决类名冲突
 import styles from './index.module.css'
-import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { Toast } from 'antd-mobile'
+import {API}from '../../utils/api.js'
 const BMap = window.BMap
 
 // 房源覆盖物默认样式
@@ -62,7 +62,7 @@ export default class Map extends React.Component {
   readMap=async value=> {
     // 查询房源数据
     Toast.loading('正在加载房源数据,请稍后')
-    const res = await axios.get('http://localhost:8080/area/map?id=' + value)
+    const res = await API.get('/area/map?id=' + value)
     Toast.hide()
     // 调用地图缩放级别
     const{nextZoom,type}=this.getTypeZoom()
@@ -175,7 +175,7 @@ var box=document.querySelector('.Map_rect__R9ScX');
  // 获取小区数据
  async getXqList(area) {
   Toast.loading('正在加载房源数据,请稍后')
-   const { data: res } = await axios.get('http://localhost:8080/houses?area=' + area)
+   const { data: res } = await API.get('/houses?area=' + area)
    Toast.hide()
    console.log(res);
    this.setState({
@@ -188,26 +188,7 @@ var box=document.querySelector('.Map_rect__R9ScX');
   mapHouseList=()=>{
     
     return this.state.houseList.map(item=>(
-
-
-    
-    <div
-    key={item.houseCode}
-          className={[
-            styles.houseList, this.state.isShow?styles.show:''
-          ].join(' ')}
-        >
-          <div className={styles.titleWrap}>
-            <h1 className={styles.listTitle}>房屋列表</h1>
-            <Link className={styles.titleMore} to="/home/list">
-              更多房源
-            </Link>
-          </div>
-
-          <div className={styles.houseItems} >
-            {/* 房屋结构 */}
-            
-              <div className={styles.house}>
+              <div className={styles.house} key={item.houseCode}>
                 <div className={styles.imgWrap}>
                   <img
                     className={styles.img}
@@ -231,8 +212,8 @@ var box=document.querySelector('.Map_rect__R9ScX');
                   </div>
                 </div>
               </div>
-          </div>
-        </div>
+          
+        
         ))
   }
   
@@ -243,7 +224,21 @@ var box=document.querySelector('.Map_rect__R9ScX');
         <NavBar>地图找房</NavBar>
 
         <div id="container" className={styles.container}></div>
+        <div
+          className={[
+            styles.houseList, this.state.isShow?styles.show:''
+          ].join(' ')}
+        >
+          <div className={styles.titleWrap}>
+            <h1 className={styles.listTitle}>房屋列表</h1>
+            <Link className={styles.titleMore} to="/home/list">
+              更多房源
+            </Link>
+          </div>
+          <div className={styles.houseItems}>
         {this.mapHouseList()}
+        </div>
+        </div>
        </div>
     )
   }

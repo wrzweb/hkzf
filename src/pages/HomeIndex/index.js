@@ -8,6 +8,7 @@ import nav3 from '../../assets/images/nav-3.png'
 import nav4 from '../../assets/images/nav-4.png'
 // 导入定位城市方法 用{}区分导入进来的组件
 import {current_city} from '../../utils/api.js'
+import Search from '../../components/Search/index.js'
 // nav 数据
 const navs = [
   {
@@ -120,33 +121,7 @@ grounps:res.body
     return (
       <div className="index">
         {/* 搜索框 */}
-        <Flex className="search-box">
-            {/* 左侧白色区域 */}
-            <Flex className="search">
-              {/* 位置 */}
-              <div
-                className="location"
-              >
-                {/* 城市选择按钮 */}
-  <span className="name" onClick={()=>this.props.history.push('/CityList')}>{this.state.currentCity}</span>
-                <i className="iconfont icon-arrow" />
-              </div>
-
-              {/* 搜索表单 */}
-              <div
-                className="form"
-               
-              >
-                <i className="iconfont icon-seach" />
-                <span className="text">请输入小区或地址</span>
-              </div>
-            </Flex>
-            {/* 右侧地图图标 */}
-            <i
-              className="iconfont icon-map"
-              
-            />
-          </Flex>
+       <Search currentCity={this.state.currentCity}></Search>
         <div className="swipers">
           {/* 根据开关判断是否需要渲染轮播图结构 */}
         {this.state.isLoading?<Carousel

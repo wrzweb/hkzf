@@ -1,4 +1,5 @@
 // 封装定位城市的方法
+import {REACT_APP_URL} from './utils.js'
 import axios from 'axios'
 export const current_city=()=>{
     // 获取本地是否有城市
@@ -20,3 +21,7 @@ export const current_city=()=>{
     // 返回本地存储中保存的城市是一个对象
     return Promise.resolve(JSON.parse(current))
 }
+// 默认url,更改axios为变量名
+export const API=axios.create({
+  baseURL:REACT_APP_URL
+})
