@@ -52,7 +52,7 @@ constructor(props){
     
 // 判断城市是否可切换
 // 点击城市传过来
-    if(change_city.indexOf(item.label)==-1){
+    if(change_city.indexOf(item.label)===-1){
       
       return Toast.info('当前城市还未入驻,敬请期待');
     }
