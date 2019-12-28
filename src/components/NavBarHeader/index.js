@@ -5,8 +5,6 @@ import propTypesaa from 'prop-types'
 import styles from'./index.module.css'
 // const{children,history,onLeftClick}=props
  function NavBarHeader({children,history,onLeftClick}) {
-     console.log(children);
-     console.log(history);
      const defaultLeft=() =>history.go(-1)
      
     return (

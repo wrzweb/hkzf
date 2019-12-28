@@ -15,6 +15,17 @@ position: relative;
 top: 0;
 }
 
-    .header :global(.icon-map){
-        color: pink;
-        }
+.header :global(.icon-map){
+ color: pink;
+ }
+ /* 房屋列表样式 */
+.houseItems {
+    padding: 0 15px;
+  }
+   /* loading样式 */
+.loading {
+  line-height: 120px;
+  text-align: center;
+  height: 110px;
+  background-color: #f6f5f6;
+}

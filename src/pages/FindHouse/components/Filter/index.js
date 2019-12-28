@@ -38,15 +38,18 @@ export default class Filter extends Component {
         newObj['mode']=true
       }else if(k==='price'&&defaultVal.price[0]!=='null'){
         newObj['price']=true
-      }else{
-        newObj[k]=false
-      }
+        // more判断不是一个空数组
+      }else if(k==='more'&&defaultVal.more.length!==0){
+        newObj['more']=true
+    } else{
+      newObj[k]=false
     }
     console.log(newObj)
     this.setState({
       seletedTitleStatus: newObj,
       openType: type
     })
+  }
   })
   // 取消遮罩方法
   onCancel=(()=>{
@@ -58,6 +61,31 @@ export default class Filter extends Component {
    onOk=(value=>{
      console.log(value)
     const {openType,defaultVal}=this.state
+    // 新建一份修改后的数据数据
+    const newDefaultVal={
+      ...defaultVal,
+      [openType]:value
+    }
+    const{area,mode,price,more}=newDefaultVal
+    const filters={}
+    console.log(area,mode,price,more);
+    // 准备area的数据
+    // filters[area[0]]是filters[area]或者是filters[subway]
+    filters[area[0]]='null'
+  console.log(area[0]);
+    if(area.length===3){
+      filters[area[0]]=area[2]==='null'?area[1]:area[2]
+    }
+    // 准备mode的数据
+    filters.rentType=[mode[0]]
+     // 准备price的数据
+     filters.price=[price[0]]
+ // 准备more的数据 数据有好多个用,分隔
+ filters.more=more.join(',')
+// 给findhouse传递数据
+this.props.handel(filters)
+
+    
     this.setState({
       defaultVal:{
         ...defaultVal,
@@ -98,7 +126,7 @@ export default class Filter extends Component {
     const data={
       characteristic,floor,oriented,roomType
     }
-    return  <FilterMore data={data} onOk={this.onOk} more={more}/>
+    return  <FilterMore data={data} onOk={this.onOk} more={more} onCancel={this.onCancel}/>
   })
    // 抽离前三个菜单的遮罩层
    readerMask=(()=>{
