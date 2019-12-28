@@ -3,7 +3,7 @@ import { Route} from 'react-router-dom'
 // 导入tabbar中其他组件
 import News from '../News'
 import HomeIndex from '../HomeIndex'
-import Me from '../Me'
+import Profile from '../Profile'
 import FindHouse from '../FindHouse'
 // 导入tabbar
 import { TabBar } from 'antd-mobile';
@@ -28,7 +28,7 @@ const tabItems = [
   {
     title: '我的',
     icon: 'icon-my',
-    path: '/home/me'
+    path: '/home/Profile'
   }
 ]
 export default class Home extends React.Component {
@@ -82,7 +82,7 @@ export default class Home extends React.Component {
         <Route path="/home/news" component={News}></Route>
         <Route path="/home" exact component={HomeIndex}></Route>
         <Route path="/home/list" component={FindHouse}></Route>
-        <Route path="/home/me" component={Me}></Route>
+        <Route path="/home/Profile" component={Profile}></Route>
         {/* tabbar页面 */}
       
           <TabBar

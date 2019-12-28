@@ -4,6 +4,8 @@ import Home from './pages/Home'
 import CityList from './pages/CityList'
 import Map from './pages/Map'
 import Login from './pages/Login'
+import Rent from './pages/Rent'
+import AuthRoute from './components/AuthRoute'
 function App() {
   return (
     <Router>
@@ -12,9 +14,10 @@ function App() {
       <Route path="/" render={()=><Redirect to="/home" />} exact></Route>
         {/* 路由占位符  路由规则*/}
         <Route path="/home" component={Home}></Route>
-        <Route path="/cityList" component={CityList}></Route>
-        <Route path="/map" component={Map}></Route>
+        <AuthRoute path="/cityList" component={CityList}></AuthRoute>
+        <AuthRoute path="/map" component={Map}></AuthRoute>
         <Route path="/login" component={Login}></Route>
+        <AuthRoute path="/rent" component={Rent}></AuthRoute>
       
     </div>
     </Router>

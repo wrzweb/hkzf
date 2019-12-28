@@ -4,7 +4,7 @@ import { Flex, WingBlank, WhiteSpace,Toast } from 'antd-mobile'
 import { Link } from 'react-router-dom'
 
 import NavBarHeader from '../../components/NavBarHeader'
-
+import {API}from '../../utils/api.js'
 import styles from './index.module.css'
 
 // 验证规则：
@@ -13,11 +13,12 @@ const REG_PWD = /^[a-zA-Z_\d]{5,12}$/
 
 class Login extends Component {
   state={
-    username:'',
-    password:''
+    username:'test1',
+    password:'123456'
   }
   // 登录提交
-  onSubmit=(e)=>{
+  onSubmit=async e=>{
+    console.log(this.props);
     e.preventDefault()
     const{username,password}=this.state
     if(username.trim().length<5||username.trim().length>8){
@@ -32,6 +33,17 @@ class Login extends Component {
     if(!REG_PWD.test(password)){
       return Toast.info('密码不能包含特殊字符')
     }
+    const{data:res}=await API.post('/user/login',{
+      username,password
+    })
+    window.localStorage.setItem('hkzf_token',res.body.token)
+    
+    if(this.props.location.state){
+      
+      
+      return this.props.history.push(this.props.location.state.toUrl)
+    }
+    this.props.history.go(-1)
     
   }
   onChange=(e)=>{
@@ -55,6 +67,7 @@ class Login extends Component {
                 className={styles.input}
                 name="username"
                 placeholder="请输入账号"
+                value={this.state.username}
                 onChange={this.onChange}
               />
             </div>
@@ -66,6 +79,7 @@ class Login extends Component {
                 name="password"
                 type="password"
                 placeholder="请输入密码"
+                value={this.state.password}
                 onChange={this.onChange}
               />
             </div>
