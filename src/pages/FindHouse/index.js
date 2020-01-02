@@ -7,7 +7,7 @@ import {REACT_APP_URL} from '../../utils/utils.js'
 import HouseItem from '../../components/HouseItem/index.js'
 // 引入长列表
 import { List,WindowScroller, AutoSizer,InfiniteLoader} from 'react-virtualized';
-const {value} =JSON.parse(localStorage.getItem('hkzf'))
+const {value} =JSON.parse(localStorage.getItem('hkzf')||'{}')
 export default class findHouse extends React.Component {
   state = {
     filters:{},

@@ -2,8 +2,8 @@ import React from 'react'
 import {Route,Redirect} from 'react-router-dom'
 import {isAuth} from '../../utils/isAuth.js'
 const AuthRoure=(props)=>{
-    const{path,component:Component}=props
-    return<Route path={path} render={(props)=>{
+    const{component:Component,path,...other}=props
+    return<Route {...other} path={path} render={(props)=>{
         
         if(isAuth()){
             // 把props展开，传递history

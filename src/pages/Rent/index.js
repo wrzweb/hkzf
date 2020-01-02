@@ -21,6 +21,7 @@ export default class Rent extends Component {
     const res = await API.get('/user/houses')
 
     const { status, body } = res.data
+    console.log(body)
     if (status === 200) {
       this.setState({
         list: body

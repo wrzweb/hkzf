@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from '../../components/NavBarHeader'
 // 引入css in js解决类名冲突
 import styles from './index.module.css'
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { Toast } from 'antd-mobile'
 import {API}from '../../utils/api.js'
 const BMap = window.BMap
