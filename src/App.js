@@ -16,7 +16,7 @@ function App() {
       {/* 默认路由规则  路由重定向*/}
       <Route path="/" render={()=><Redirect to="/home" />} exact></Route>
         {/* 路由占位符  路由规则*/}
-        {/* <Suspense> 加载时显示的内容*/}
+        {/* <Suspense> 加载时显示的内容*/ }
   <Suspense fallback={<img src='./loading.gif'></img>}>
         <Route path="/home" component={Home}></Route>
         <AuthRoute path="/cityList" component={CityList}></AuthRoute>
